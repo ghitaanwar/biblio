@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      >
+    
+    <ui:composition template="template-site.xhtml"> 
+        
+
+        
+<ui:define name="titre"> | Recherche</ui:define>        
+        
+<ui:define name="page">
+    
+    <f:event type="preRenderView" listener="#{homeController.setPage('recherche')}" /> 
+    <f:event type="preRenderView" listener="#{rechecheController.recherche()}" /> 
+
+        <!-- Start: Products Section -->
+        <div id="content" class="site-content">
+            <div id="primary" class="content-area">
+                <main id="main" class="site-main">
+                    <div class="books-full-width">
+                        <div class="container">
+                            <!-- Start: Search Section -->
+                            <section class="search-filters">
+                                <div class="filter-box" style="background-color:#2f2f2f;">
+                                   <!-- <h3>Qu'est ce que vous cherchez ?</h3>-->
+                                    
+                                    <h:form id="recherche-form">
+                                        
+                                    
+                                        <div class="col-md-9 col-sm-6">
+                                            <div class="form-group">
+                                                <p:inputText class="form-control padding-input" placeholder="Titre du Oeuvre"  value="#{rechecheController.nom}"/>
+                                            </div>
+                                        </div>
+                                        
+
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="form-group">
+                                                <p:selectOneMenu filter="false" filterMatchMode="startsWith" value="#{rechecheController.categorie}" id="categoriehome" style="width:100%;" >
+                                                    <f:selectItem itemLabel="Selectionner Gategorie"  value="#{null}"  />
+                                                    <f:selectItems  value="#{categorieController.items}" var="cat" itemValue="#{cat}" itemLabel="#{cat.nom}"   />
+                                                </p:selectOneMenu>
+
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-3 col-sm-6">
+                                                     <div class="form-group">
+                                                         <p:selectOneMenu  filter="true" filterMatchMode="startsWith" value="#{rechecheController.auteur}" id="categorie" style="width:100%;"  >
+                                                             <f:selectItem itemLabel="Selectionner Auteur"  value="#{null}" noSelectionOption="true" />
+                                                             <f:selectItems  value="#{auteurController.items}" var="cat" itemValue="#{cat}" itemLabel="#{cat.nom}"   />
+
+                                                         </p:selectOneMenu>
+
+                                                     </div>
+                                        </div>
+                                                                
+                                        <div class="col-md-3 col-sm-6">
+                                                     <div class="form-group">
+                                                         <p:selectOneMenu  filter="true" filterMatchMode="startsWith" value="#{rechecheController.type}" id="auteur" style="width:100%;"  >
+                                                             <f:selectItem itemLabel="Selectionner Le type"  value="#{null}" noSelectionOption="true" />
+                                                             <f:selectItems  value="#{oeuvreController.getOeuvreType()}" var="cat" itemValue="#{cat}" itemLabel="#{cat}"   />
+
+                                                         </p:selectOneMenu>
+
+                                                     </div>
+                                        </div>
+     
+                                        <div class="col-md-3 col-sm-6">
+                                                     <div class="form-group">
+                                                         <p:selectOneMenu  value="#{rechecheController.dispo}" id="dispo" style="width:100%;"  >
+                                                             <f:selectItem itemLabel="Tous les Ouvres"  itemValue="#{false}"  />                                                             
+                                                             <f:selectItem itemLabel="Oeuvres Disponible"  itemValue="#{true}"  />
+                                                         </p:selectOneMenu>
+
+                                                     </div>
+                                        </div>   
+                                        
+                                        <div class="col-md-3 col-sm-6 pull-right">
+                                            <div class="form-group">
+                                                <p:commandButton value="RECHERCHE" actionListener="#{rechecheController.recherche()}" class="buttonhome" update=":recherche-result:grid" oncomplete=""/>
+                                            </div>
+                                        </div>                                         
+                                        
+                                        
+                                    </h:form>    
+  
+                                </div>
+                                <div class="clear"></div>
+                            </section>
+                            <!-- End: Search Section -->
+                            
+                         <!--   <div class="filter-options margin-list">
+                                <div class="row">                                            
+                                    <div class="col-md-3 col-sm-3">
+                                        <select name="orderby">
+                                            <option selected="selected">Sort by Title</option>
+                                            <option>Sort by popularity</option>
+                                            <option>Sort by rating</option>
+                                            <option>Sort by newness</option>
+                                            <option>Sort by price</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3">
+                                        <select name="orderby">
+                                            <option selected="selected">Sort by Author</option>
+                                            <option>Sort by popularity</option>
+                                            <option>Sort by rating</option>
+                                            <option>Sort by newness</option>
+                                            <option>Sort by price</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2 col-sm-3">
+                                        <select name="orderby">
+                                            <option selected="selected">Language</option>
+                                            <option>Sort by popularity</option>
+                                            <option>Sort by rating</option>
+                                            <option>Sort by newness</option>
+                                            <option>Sort by price</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2 col-sm-3">
+                                        <select name="orderby">
+                                            <option selected="selected">Publishing Date</option>
+                                            <option>Sort by popularity</option>
+                                            <option>Sort by rating</option>
+                                            <option>Sort by newness</option>
+                                            <option>Sort by price</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2 col-sm-12 pull-right">
+                                        <div class="filter-toggle">
+                                            <a href="books-media-gird-view-v2.html" class="active"><i class="glyphicon glyphicon-th-large"></i></a>
+                                            <a href="books-media-list-view.html"><i class="glyphicon glyphicon-th-list"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>-->
+                            
+                            
+                            
+                            <div class="booksmedia-fullwidth">
+                                    
+                                <h:form id="recherche-result">
+                                   
+                                <p:dataGrid var="book" value="#{rechecheController.books}" columns="5" layout="grid"
+                                        rows="15" paginator="true" id="grid"
+                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+                                        rowsPerPageTemplate="6,12,16">
+
+                                        <div class="book-grid">
+                                          <!--  <div class="dispo #{book.isdispo()?'green-bg':'red-bg'}">#{book.isdispo()?'Disponible':'Non Disponible'}</div>-->
+                                            <figure>
+                                                <a href="#"><img src="${book.image==null?oeuvreController.image:oeuvreController.showimg(book)}" alt="Book"/></a>
+                                                <figcaption>
+                                                    <header>
+                                                        <h4><a href="books-media-detail-v2.html">#{book.nom}</a></h4>
+                                                        <p><strong>Author:</strong>  #{book.auteur.nom}</p>
+                                                        <p><strong>Date Creation:</strong><h:outputText value="#{book.dateCreation}"><f:convertDateTime pattern="MM/dd/yyyy" />  </h:outputText> </p>
+                                                        <p><strong>Edition:</strong>  #{book.edition}</p>
+                                                    </header>
+                                                    <div class="actions">
+                                                        <ul>
+                                                            <li>
+                                                    
+                                                                
+                                                                <p:commandLink  actionListener="#{homeController.addReservedbook(book)}" update=":growl,:reserveOeuvreTopForm" disabled="#{!book.isdispo()}" oncomplete="" onclick="showcart()" title="Reserver" > 
+                                                                    <i class="fa fa-plus"></i></p:commandLink>                                                               
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" target="_blank" data-toggle="blog-tags" data-placement="top" title="Like">
+                                                                    <i class="fa fa-heart"></i>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <p:commandLink actionListener="#{rechecheController.viewbook(book)}" update=":OeuvreViewForm" oncomplete="PF('OeuvreViewDialog').show()"  > 
+                                                                    <i class="fa fa-search"></i></p:commandLink>
+                                                           
+                                                            </li>
+
+
+                                                        </ul>
+                                                    </div>
+                                                </figcaption>
+                                            </figure>                                                
+
+
+                                        </div>
+                                                                                                                       
+                              
+                                    </p:dataGrid>                                    
+                                    
+
+				</h:form>					
+					
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                        
+                            </div>
+                          <!--  <nav class="navigation pagination text-center">
+                                <h2 class="screen-reader-text">Posts navigation</h2>
+                                <div class="nav-links">
+                                    <a class="prev page-numbers" href="#."><i class="fa fa-long-arrow-left"></i> Previous</a>
+                                    <a class="page-numbers" href="#.">1</a>
+                                    <span class="page-numbers current">2</span>
+                                    <a class="page-numbers" href="#.">3</a>
+                                    <a class="page-numbers" href="#.">4</a>
+                                    <a class="next page-numbers" href="#.">Next <i class="fa fa-long-arrow-right"></i></a>
+                                </div>
+                            </nav>-->
+                        </div>
+<br/>
+						
+                    </div>
+                </main>
+            </div>
+        </div>
+        <!-- End: Products Section -->
+
+
+        
+        
+        <ui:include src="template/bookview.xhtml"/>
+
+      
+        
+</ui:define>        
+     
+        
+        
+        
+        
+<ui:define name="style">
+    
+    <style>
+    .ui-datagrid-column {
+        padding: 3px;
+        width: 20%;
+    }        
+
+
+.book-grid {
+    border: 5px solid #f3f3f3;
+    display: inline-block;
+    margin: 0 26px 30px 0;
+    position: relative;
+    vertical-align: top;
+    width: 94%;
+}
+
+.ui-paginator-top {
+    display: none;
+}
+
+.dispo {
+    
+    padding: 5px 10px;
+    /*width: 90px;*/
+    position: absolute;
+    z-index: 999;
+    margin-top: 10px;
+    color: #fff;
+}
+
+.dispo.small {
+    font-size: 12px;
+}
+.green-bg {
+    background-color: #84bb45;
+}
+
+.red-bg {
+    background-color: #bb454a;
+}
+ 
+    </style>
+    
+</ui:define>        
+
+
+
+
+
+        <ui:define name="home">    
+                <!-- Start: Page Banner -->
+                <section class="page-banner services-banner">
+                    <div class="container">
+                        <div class="banner-header">
+                            <h2>Oeuvre Recherche</h2>
+                            <span class="underline center"></span>
+                          <p class="lead">Votre biblioheque En  seul clique</p>
+                        </div>
+                     
+                    </div>
+                </section>
+                <!-- End: Page Banner -->
+        </ui:define> 
+    </ui:composition>
+    
+
+
+</html>
+

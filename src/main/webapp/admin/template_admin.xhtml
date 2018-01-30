@@ -1,0 +1,112 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>
+    <ui:insert name="titre">
+        <h:outputText value="FST TANGER BiBliotheque" />
+     </ui:insert>
+      
+  </title>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+  <link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/admin/resources/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/admin/resources/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/admin/resources/css/ionicons.min.css" />
+  <link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/admin/resources/css/style.css" />
+  <link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/admin/resources/css/skin.css" />
+  <link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/admin/resources/js/plugins/iCheck/flat/blue.css" />
+  <link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/admin/resources/js/plugins/morris/morris.css" />
+  <!--<link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/resources/js/plugins/jvectormap/jquery-jvectormap-1.2.2.css" />-->
+  <link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/admin/resources/js/plugins/datepicker/datepicker3.css" />
+  <link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/admin/resources/js/plugins/daterangepicker/daterangepicker.css" />
+  <link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/admin/resources/js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" />
+  <link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/admin/resources/css/primefaces.css" />
+  <link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/admin/resources/css/edit.css" />
+
+  
+  
+  
+  
+</h:head>
+    
+    <f:event type="preRenderView" listener="#{loginController.checkAdminlogin()}" />
+
+
+           <!-- <p:growl id="growl" showDetail="true" life="999000" />-->
+            
+        <p:growl id="growl" life="3000" />
+
+
+ <h:body class="hold-transition skin-blue sidebar-mini">
+     <div class="wrapper">
+       <ui:include src="template/header.xhtml" />
+        <ui:include src="template/menu.xhtml" />
+        
+        <div class="content-wrapper">
+            <section class="content-header">
+                <ui:insert name="page_name">
+                        <h1>Acceuil<small>Administation</small></h1>                
+                </ui:insert>
+            </section>
+            
+            <section class="content">  
+             	<ui:insert name="page" >
+                    
+                </ui:insert>
+            </section>  
+        </div>
+        
+        <ui:include src="template/footer.xhtml" />
+  
+     </div>
+        
+     <ui:insert name="default-script">
+<script src="${facesContext.externalContext.requestContextPath}/admin/resources/js/jquery-ui.min.js"></script>
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<script src="${facesContext.externalContext.requestContextPath}/admin/resources/js/bootstrap.min.js"></script>
+<script src="${facesContext.externalContext.requestContextPath}/admin/resources/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+<script src="${facesContext.externalContext.requestContextPath}/admin/resources/js/plugins/knob/jquery.knob.js"></script>
+<script src="${facesContext.externalContext.requestContextPath}/admin/resources/js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<script src="${facesContext.externalContext.requestContextPath}/admin/resources/js/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="${facesContext.externalContext.requestContextPath}/admin/resources/js/plugins/fastclick/fastclick.js"></script>
+<script src="${facesContext.externalContext.requestContextPath}/admin/resources/js/app.min.js"></script>
+
+     </ui:insert>
+  <ui:insert name="script">
+
+  </ui:insert>
+
+     <style>
+         
+
+.green-bg {
+    background-color: #84bb45;
+    color:#fff;
+}
+
+.red-bg {
+    background-color: #bb454a;
+        color:#fff;
+
+}
+.yellow-bg{
+    background-color:#ffa500;
+        color:#fff;
+
+}         
+         
+     </style>
+         
+         
+
+</h:body>    
+</html>
+
+    

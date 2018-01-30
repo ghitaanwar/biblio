@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReservationItemCreateDlg" widgetVar="ReservationItemCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateReservationItemTitle}">
+            <h:form id="ReservationItemCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{reservationItemController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateReservationItemLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{reservationItemController.selected.id}" title="#{bundle.CreateReservationItemTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateReservationItemLabel_demande}" for="demande" />
+                        <p:inputText id="demande" value="#{reservationItemController.selected.demande}" title="#{bundle.CreateReservationItemTitle_demande}" />
+                        <p:outputLabel value="#{bundle.CreateReservationItemLabel_oeuvre}" for="oeuvre" />
+                        <p:selectOneMenu id="oeuvre" value="#{reservationItemController.selected.oeuvre}" >
+                            <f:selectItems value="#{oeuvreController.itemsAvailableSelectOne}"
+                                           var="oeuvreItem"
+                                           itemValue="#{oeuvreItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{reservationItemController.create}" value="#{bundle.Save}" update="display,:ReservationItemListForm:datalist,:growl" oncomplete="handleSubmit(args,'ReservationItemCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ReservationItemCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

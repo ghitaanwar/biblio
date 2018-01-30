@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        
+        <p:dialog id="OeuvreViewDlg" widgetVar="OeuvreViewDialog" modal="true" resizable="false" appendTo="@(body)" header="">
+            <h:form id="OeuvreViewForm">
+                            <div class="detailed-box">
+                                    <div class="col-md-2">
+                                        <div class="post-thumbnail">
+                                            
+                                            <div class="dispo #{rechecheController.book.isdispo()?'green-bg':'red-bg'}">#{rechecheController.book.isdispo()?'Disponible':'Non Disponible'}</div>
+                                            <img src="${facesContext.externalContext.requestContextPath}/resources/images/book3.png" alt="Book Image"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="post-center-content">
+                                            <h2>#{rechecheController.book.nom}</h2>
+                                            <p><strong>Auteur : </strong> #{rechecheController.book.auteur.nom}</p>
+                                            <p><strong>Categorie : </strong> #{rechecheController.book.categorie.nom}</p>                              
+                                            <p><strong>Date : </strong> <h:outputText value="#{rechecheController.book.dateCreation}"><f:convertDateTime pattern="MM/dd/yyyy" />  </h:outputText> </p>
+                                            <p><strong>Edition : </strong> #{rechecheController.book.edition}</p>
+                                            <p><strong>Publisher : </strong> New York : Shaye Areheart Books, c2008</p>
+                                            <p><strong>Type : </strong> #{rechecheController.book.type}</p>
+                                            <p><strong>Lang : </strong> #{rechecheController.book.lang}</p>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 ">
+                                        <div class="post-right-content">
+                                            
+                                            <div style="">
+                                           <!-- <p:rating value="6"  stars="10" readonly="true"  />-->
+                                            </div>
+                                            
+                                            <p:commandLink class="btn red-bg" style="color:#fff"  rendered="#{!rechecheController.book.isdispo()}" >
+                                                
+                                                   Disponible le   <h:outputText value="#{oeuvreController.getOuvreRemiseDate(rechecheController.book)}">
+                                                                   <center>  <f:convertDateTime pattern="MM/dd/yyyy" /></center> 
+                                                                </h:outputText>
+                                                 </p:commandLink>
+                                            <p:commandLink class="btn btn-dark-gray" actionListener="#{homeController.addReservedbook(rechecheController.book)}" update=":growl,:reserveOeuvreTopForm" oncomplete=""  disabled="#{!rechecheController.book.isdispo()}"> 
+                                                                    <i class="fa fa-plus"></i> Reserver Maintenant </p:commandLink>     
+
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>                
+                
+
+            </h:form>
+        </p:dialog> 
+
+    </ui:composition>
+</html>

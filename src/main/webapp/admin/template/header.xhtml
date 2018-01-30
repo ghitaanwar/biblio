@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+          
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <body>
+        <ui:composition>
+
+            <h:form>
+<header class="main-header">
+    <!-- Logo -->
+    <a href="index2.html" class="logo">
+      <span class="logo-mini"><b>F</b>ST</span>
+      <span class="logo-lg"><b>TANGER</b></span>
+    </a>
+	
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+		
+		  
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="${facesContext.externalContext.requestContextPath}/admin/resources/img/user2-160x160.png" class="user-image" alt="User Image" />
+              <span class="hidden-xs">#{loginController.admin().nom}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <img src="${facesContext.externalContext.requestContextPath}/admin/resources/img/user2-160x160.png" class="img-circle" alt="User Image" />
+
+                <p>
+                  #{loginController.admin.nom}
+                  <small>#{(loginController.admin().droit==1)?'Administrateur':'Bibliothecaire'}</small>
+                </p>
+              </li>
+              <!-- Menu Body -->
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                 <!-- <a href="#" class="btn btn-default btn-flat">Profile</a>-->
+                  
+                  
+                </div>
+                <div class="pull-right">
+                    <p:commandLink actionListener="#{loginController.deconnectionAdmin()}" class="btn btn-default btn-flat">Deconnetion</p:commandLink>
+                </div>
+              </li>
+            </ul>
+          </li>
+		  
+		  
+        </ul>
+      </div>
+    </nav>
+  </header>
+  
+</h:form>  
+ </ui:composition>
+    </body>
+</html>

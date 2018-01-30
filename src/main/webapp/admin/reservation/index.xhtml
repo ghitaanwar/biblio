@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../template_admin.xhtml">
+
+
+    <ui:define name="page_name">
+        <h1>Reservation <small>Administation</small></h1>                
+    </ui:define>
+      
+
+    <ui:define name="page">
+
+
+        <div class="box box-warning box-primary"> 
+           
+            <div class="box-header with-border">
+                      <h3 class="box-title">Recherche Reservation :</h3>
+
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                      </div>
+            </div>
+                    <h:form id="RechercheCreateForm">
+            
+            <div class="box-body">
+                <div class="row">
+                        
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label>CNE :</label>
+                                <p:selectOneMenu id="cne" value="#{reservationController.cne}" filter="true" filterMatchMode="startsWith" class="form-control"  style="width:100%;"  >
+                                <f:selectItem itemValue="#{null}" itemLabel="Tous les Etudiant" />                                    
+                                <f:selectItems value="#{etudiantController.items}"   var="item"  itemValue="#{item.cne}" itemLabel="#{item.cne}-#{item.toString()}"/>
+                            </p:selectOneMenu>                         
+                          <!--  <p:inputText id="cne" value=""  class="form-control"  />-->
+                                        <!-- /.input group -->
+                        </div>
+
+                    </div>
+                        
+              <!--  <div class="col-xs-3">
+                        <div class="form-group">
+                            <label>Oeuvre :</label>
+                            <div class=" date">
+                                <p:selectOneMenu value="#{reservationController.oeuvre}" id="oeuvre" class="form-control"  style="width:100%;" filter="True">
+                                    <f:selectItem itemValue="#{null}" itemLabel="Selectionner auteur" />
+                                    <f:selectItems value="#{oeuvreController.items}"  var="item" itemValue="#{item}" itemLabel="#{item.nom}" />                  
+                                </p:selectOneMenu>
+                            </div>
+                        </div>
+                </div>  -->
+                        
+                        
+
+                    
+                <div class="col-xs-3">
+                        <div class="form-group">
+                            <label>Etat :</label>
+                            <div class=" date">
+                                <p:selectOneMenu value="#{reservationController.etat}" id="etat" class="form-control"  style="width:100%;" >
+                                    <f:selectItem itemValue="-2" itemLabel="Tous" />
+                                    <f:selectItem itemValue="-1" itemLabel="Annuler" />
+                                    <f:selectItem itemValue="0" itemLabel="En Attente" />
+                                    <f:selectItem itemValue="1" itemLabel="Confirmer" />
+                                    
+                                </p:selectOneMenu>
+                            </div>
+                                <!-- /.input group -->
+                        </div>
+                </div>                     
+                    
+
+                    
+
+
+                        
+                        
+                <div class="col-xs-3">
+                        <div class="form-group">
+                            <label>Date Min :</label>
+                            <div class=" date">
+                                <p:calendar id="min" pattern="MM/dd/yyyy" value="#{reservationController.min}" title="#{bundle.EditReservationTitle_dateRemise}"  showOn="button"/>
+                            </div>
+                        </div>
+                </div>   
+
+
+                <div class="col-xs-3">
+                        <div class="form-group">
+                            <label>Date Max :</label>
+                            <div class=" date">
+                                <p:calendar id="max" pattern="MM/dd/yyyy" value="#{reservationController.max}" title="#{bundle.EditReservationTitle_dateRemise}"  showOn="button"/>
+                            </div>
+                        </div>
+                </div>         
+                        
+                            
+                        
+        
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                        <!--    <p:commandButton value="RESET"  id="final" actionListener="#{oeuvreController.reset()}" update="RechercheCreateForm,:ReservationListForm:datalist" class="btn btn-pinterest btn-block"  />   -->
+                        </div>                         
+                    </div>                                            
+
+                        
+                </div>        
+            </div>
+            
+            
+            <div class="box-footer">
+<p:commandButton value="chercher"  id="add" class="btn btn-success btn-lg pull-right "  update="RechercheCreateForm,:ReservationListForm:datalist"    />
+              </div>   
+                        
+                        
+                </h:form>               
+            
+        </div>
+                    
+                    
+                    
+                    
+                    
+                    
+        
+        
+        <div class="box  box-primary"> 
+           
+            <div class="box-header with-border">
+                      <h3 class="box-title">List Des Reservations :</h3>
+            </div>
+            
+            <div class="box-body">
+            <h:form id="ReservationListForm">
+                    <p:dataTable id="datalist" value="#{reservationController.items}" var="item" 
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50">
+
+
+                        <p:column width="120">
+                            <f:facet name="header">
+                                <h:outputText value="ID"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date Demande"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateDemande}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date Resmise"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateRemise}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Etudiant"/>
+                            </f:facet>
+                            <h:outputText value="#{item.etudiant.toString()}"/>
+                        </p:column>
+                                              
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Statue"/>
+                            </f:facet>
+                            <center> <span class="label #{reservationController.reservationstate(item).get(1)}"> #{reservationController.reservationstate(item).get(0)}</span></center>
+                        </p:column>                        
+                        
+                        <p:column width="250">
+                            <f:facet name="header">
+                                <h:outputText value="action"/>
+                            </f:facet>
+                            <p:commandButton id="voirButton"   class="btn btn-primary btn-xs" value="Voir"  update=":ReservationViewForm" actionListener="#{reservationController.view(item)}" oncomplete="PF('ReservationViewDialog').show()" />
+                            <p:commandButton id="editButton"   class="btn btn-success btn-xs"  value="Confirmer "  disabled="#{reservationController.state(item)!=0}" update=":ReservationEmpruntForm" actionListener="#{reservationController.view(item)}" oncomplete="PF('ReservationEmprunteDialog').show()" />
+                            <p:commandButton id="anullerButton"   class="btn btn-danger btn-xs"  value="Annuler"  disabled="#{reservationController.state(item)!=0}" update=":ReservationEmpruntForm,datalist,:growl" actionListener="#{reservationController.Annuler(item)}" />
+                        
+                        </p:column>     
+                        
+
+                    </p:dataTable>
+
+            </h:form>                </div></div>
+
+            <ui:include src="View.xhtml"/>
+            <ui:include src="add.xhtml"/>
+
+            <style>
+                
+.dialogereserveinfo .product-thumbnail, .dialogereserveinfo .product-detail { 
+      display: inline-block;
+    vertical-align: top;
+    margin-right:10px;
+}
+
+.dialogereserveinfo .product-detail > span {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.dialogereserveinfo  a {
+    color: #ff7236;
+    display: block;
+    font-size: 14px;
+    font-family: "Lato", Georgia, Times, serif;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.dialogereserveinfo .ui-datatable thead th {
+    background-color: #353535;
+    padding: 6px 12px;
+    border-color: #6e6764;
+    color: #fff;
+}
+
+.dialogereserveinfo .btn-go {
+    background-color: #353535;
+    padding: 10px;
+    width: 300px;
+    float: right;
+
+}
+
+
+.dialogereserveinfo .btn-go:hover {
+    background-color: #ff7236;
+    padding: 10px;
+    width: 300px;
+    float: right;
+
+}
+
+.dialogereserveinfo  .table-bordered {
+    border :0;
+}
+
+body .ui-datatable .ui-datatable-data tr.ui-datatable-odd.ui-state-highlight , body .ui-datatable .ui-datatable-data tr.ui-datatable-even.ui-state-highlight {
+    background-color: #ffffff;
+    color: #000;
+    border-color: #c7c7c7;
+}
+            </style>                        
+            
+            
+        </ui:define>
+    </ui:composition>
+
+</html>

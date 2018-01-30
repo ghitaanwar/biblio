@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdminCreateDlg" widgetVar="AdminCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Ajouter Admin">
+            <h:form id="AdminCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{adminController.selected != null}">
+                        <p:outputLabel value="USERNAME" for="username" />
+                        <p:inputText id="username" value="#{adminController.selected.username}" required="true" requiredMessage="Username Obligatoire"  />
+                        
+                        <p:outputLabel value="PASS" for="pass" />
+                        <p:inputText id="pass" value="#{adminController.selected.pass}"  required="true" requiredMessage="Pass Obligatoire"/>
+                        
+                        <p:outputLabel value="Nom Complet" for="nom" />
+                        <p:inputText id="nom" value="#{adminController.selected.nom}" required="true" requiredMessage="Nom Obligatoire"  />
+
+                        <p:outputLabel value="Droit" for="droit" />
+                            <p:selectOneMenu id="droit"  class="form-control" style="width:auto;" value="#{adminController.selected.droit}"  required="true" requiredMessage="Droit Obligatoire" >                                    
+                                    <f:selectItem itemLabel="Administrateur"  itemValue="1"  />
+                                    <f:selectItem itemLabel="Simple Bibliothécaire"  itemValue="0"  />
+                             </p:selectOneMenu> 
+                        
+                    </p:panelGrid>
+                    <p:commandButton   class="btn btn-primary btn-block  btn-success pull-right"  actionListener="#{adminController.create}"  value="Ajouter" update="display,:AdminListForm:datalist,:growl" oncomplete="handleSubmit(args,'AdminCreateDialog');"  onclick="AdminCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

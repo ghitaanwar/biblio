@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../template_admin.xhtml">
+
+
+    <ui:define name="page_name">
+        <h1>Oeuvre <small>Administation</small></h1>                
+    </ui:define>
+      
+
+    <ui:define name="page">
+
+
+
+        
+        <div class="box box-warning box-primary"> 
+           
+            <div class="box-header with-border">
+                      <h3 class="box-title">Recherche Oeuvre :</h3>
+
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                      </div>
+            </div>
+            
+            <div class="box-body">
+                <div class="row">
+                     <h:form id="RechercheCreateForm">
+                    
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label>Nom :</label>
+                                <p:inputText id="nom" value="#{oeuvreController.nom}"  class="form-control"  />
+                                        <!-- /.input group -->
+                        </div>
+
+                    </div>
+                         
+                     
+
+
+                         
+
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label>Auteur :</label>
+                            <div class=" date">
+                                <p:selectOneMenu value="#{oeuvreController.auteur}" id="auteur" class="form-control"  style="width:100%;" filter="True">
+                                    <f:selectItem itemValue="#{null}" itemLabel="Selectionner auteur" />
+                                    <f:selectItems value="#{auteurController.items}"  var="item" itemValue="#{item}" itemLabel="#{item.nom}" />                  
+                                </p:selectOneMenu>
+                            </div>
+                                <!-- /.input group -->
+                        </div>
+                    </div>   
+
+
+
+                         
+                         
+                    <div class="col-xs-3">
+
+                        <div class="form-group">
+                            <label>Categorie :</label>
+                            <div class=" date">
+                                <p:selectOneMenu value="#{oeuvreController.categorie}" id="categorie"  style="width:100%;" class="form-control" filter="True" >
+                                    <f:selectItem itemValue="#{null}" itemLabel="Seletioner Categorie" />
+                                    <f:selectItems value="#{categorieController.items}" var="item" itemValue="#{item}" itemLabel="#{item.nom}" />                                
+                                </p:selectOneMenu>
+                            </div>
+                                <!-- /.input group -->
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label>Disponible :</label>
+                            <div class=" date">
+                                <p:selectOneMenu value="#{oeuvreController.dispo}" id="dispo" class="form-control"  style="width:100%;">
+                                    <f:selectItem itemValue="#{false}" itemLabel="Tous les Oeuvre" />
+                                    <f:selectItem itemValue="#{true}" itemLabel="Oeuvre Disponible" />                  
+                                </p:selectOneMenu>
+                            </div>
+                                <!-- /.input group -->
+                        </div>
+                    </div>  
+                         
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label>Type :</label>
+                            <div class=" date">
+                                <p:selectOneMenu value="#{oeuvreController.type}" id="type" style="width:100%;" class="form-control" >
+                                    <f:selectItem itemValue="#{null}" itemLabel="Seletioner Type" />
+                                    <f:selectItems  value="#{oeuvreController.typeList()}" var="item" itemValue="#{item}" itemLabel="#{item}"/>                                
+                                </p:selectOneMenu>
+                            </div>
+                                <!-- /.input group -->
+                        </div>
+                    </div>
+
+
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label>Language :</label>
+                            <div class=" date">
+                                <p:selectOneMenu value="#{oeuvreController.lang}" id="lang" style="width:100%;" class="form-control" >
+                                    <f:selectItem itemValue="#{null}" itemLabel="tous les Langue" />
+                                    <f:selectItem itemValue="FR" itemLabel="FR" />
+                                    <f:selectItem itemValue="AR" itemLabel="AR" />
+                                    <f:selectItem itemValue="EN" itemLabel="EN" />
+                                    <f:selectItem itemValue="ES" itemLabel="ES" />
+                                   
+                                </p:selectOneMenu>
+                            </div>
+                                <!-- /.input group -->
+                        </div>
+                    </div> 
+                         
+                    <div class="col-xs-3">
+                         
+                        <div class="form-group">
+<br />
+                            <p:commandButton value="chercher"  id="add" class="btn btn-primary btn-block "  update="RechercheCreateForm,:OeuvreListForm:datalist"    /> <br/>
+                            <p:commandButton value="RESET"  id="final" actionListener="#{oeuvreController.reset()}" update="RechercheCreateForm,:OeuvreListForm:datalist" class="btn btn-pinterest btn-block"  />
+                            
+                        </div>                         
+                    </div>     
+                         
+                     </h:form>
+                         
+                </div>
+            </div>
+        </div>                 
+
+        
+        
+        
+        
+        <div class="box  box-primary"> 
+           
+            <div class="box-header ">
+                      <h3 class="box-title"> Oeuvre List :</h3>
+            </div>
+            
+            
+            <div class="box-body">        
+            <h:form id="OeuvreListForm">
+                    <p:dataTable id="datalist" value="#{oeuvreController.items}" var="item"
+                                 selectionMode="single" selection="#{oeuvreController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update=" viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update=" viewButton editButton deleteButton"/>
+
+                        <p:column width="70">
+                            <f:facet name="header" >
+                                <h:outputText value=""/>
+                            </f:facet>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nom"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nom}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Auteur"/>
+                            </f:facet>
+                            <h:outputText value="#{item.auteur.nom}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Categorie"/>
+                            </f:facet>
+                            <h:outputText value="#{item.categorie.nom}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Type"/>
+                            </f:facet>
+                            <h:outputText value="#{item.type}"/>
+                        </p:column>
+
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Qte"/>
+                            </f:facet>
+                            <center> <span class="label #{item.isdispo()?'label-success':'label-danger'}"><h:outputText value="#{item.isdispo()?'Dispo':'Non Dispo'} " /></span> </center>
+                        </p:column>
+
+
+                        
+                        
+                        
+                        <f:facet name="footer">
+                            <p:commandButton id="viewButton"  class="btn btn-primary btn-xs"  icon="ui-icon-search" value="#{bundle.View}" update=":OeuvreViewForm" oncomplete="PF('OeuvreViewDialog').show()" disabled="#{empty oeuvreController.selected}"/>
+                            <p:commandButton id="editButton"   class="btn btn-warning btn-xs" icon="ui-icon-pencil" value="#{bundle.Edit}" update=":OeuvreEditForm" oncomplete="PF('OeuvreEditDialog').show()" disabled="#{empty oeuvreController.selected}"/>
+                            <p:commandButton id="deleteButton" class="btn btn-danger btn-xs" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{oeuvreController.destroy}" update=":growl,datalist" disabled="#{empty oeuvreController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+               </h:form>
+              </div>
+                                       <!-- dzefze-->
+
+           </div>  
+
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+            
+               <style>
+                  .ui-fileupload-cancel , .ui-fileupload-upload {
+                      display: none;
+                  }
+              </style>
+              
+            
+        </ui:define>
+        
+          <ui:insert name="script">
+  </ui:insert>
+        
+    </ui:composition>
+
+</html>

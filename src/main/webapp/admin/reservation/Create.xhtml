@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReservationCreateDlg" widgetVar="ReservationCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateReservationTitle}">
+            <h:form id="ReservationCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{reservationController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateReservationLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{reservationController.selected.id}" title="#{bundle.CreateReservationTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateReservationLabel_dateDemande}" for="dateDemande" />
+                        <p:calendar id="dateDemande" pattern="MM/dd/yyyy" value="#{reservationController.selected.dateDemande}" title="#{bundle.EditReservationTitle_dateDemande}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateReservationLabel_dateRemise}" for="dateRemise" />
+                        <p:calendar id="dateRemise" pattern="MM/dd/yyyy" value="#{reservationController.selected.dateRemise}" title="#{bundle.EditReservationTitle_dateRemise}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateReservationLabel_etudiant}" for="etudiant" />
+                        <p:selectOneMenu id="etudiant" value="#{reservationController.selected.etudiant}" >
+                            <f:selectItems value="#{etudiantController.itemsAvailableSelectOne}"
+                                           var="etudiantItem"
+                                           itemValue="#{etudiantItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{reservationController.create}" value="#{bundle.Save}" update="display,:ReservationListForm:datalist,:growl" oncomplete="handleSubmit(args,'ReservationCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ReservationCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

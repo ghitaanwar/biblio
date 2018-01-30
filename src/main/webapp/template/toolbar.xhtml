@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+          
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <body>
+        <ui:composition>
+
+                                       
+                            <!-- Header Topbar -->
+                            <div class="header-topbar hidden-sm hidden-xs">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="topbar-info">
+                                            <a href="#"><i class="fa fa-phone"></i>#{homeController.site().tel}</a>
+                                            <span>/</span>
+                                            <a href="mailto:#{homeController.site().email}"><i class="fa fa-envelope"></i>#{homeController.site().email}</a>
+                                        </div>
+                                    </div>
+                       <h:form id="reserveOeuvreTopForm" >
+                                    
+                                    <div class="col-sm-6">
+                                        <div class="topbar-links">
+                                            <p:commandLink   actionListener="#{homeController.checklogin()}" update=":compteViewForm" oncomplete="PF('compteDialog').show()" > #{homeController.user==null?"Connexion/Inscription": homeController.user.toString()} </p:commandLink>
+                                          
+                                            <span>|</span>
+                                            <div class="header-cart dropdown">
+
+                                                
+                                                <a data-toggle="dropdown" class="dropdown-toggle" href="#" id="">
+                                                    <i class="fa fa-book"></i>
+                                                    <small style="padding: 2px;"> <h:outputText id="sizeouvres" value="#{homeController.books==null?'0':homeController.books.size()}" /></small>
+                                                </a>
+                                                    <div class="dropdown-menu cart-dropdown" >
+                                                    <ul>
+                                                        <ui:repeat id="listouvres" value="#{homeController.books}" var="book"  >
+                                                       <!-- <ui:repeat id="listouvres" value="#{homeController.books}" var="book" >-->
+                                                        <li class="clearfix">
+                                                            <img src="${facesContext.externalContext.requestContextPath}/resources/images/book3.png" alt="cart item" />
+                                                            <div class="item-info">
+                                                                <div class="name">
+                                                                    <a href="#">#{book.nom}</a>
+                                                                </div>
+                                                                <div class="author"><strong>Author:</strong> #{book.auteur.nom}</div>
+                                                               <div class="author"><strong>Edition:</strong> #{book.edition}</div>
+                             
+                                                            </div>
+                                                            <p:commandLink  class="remove" actionListener="#{homeController.delReservedbook(book)}" update=":growl,:reserveOeuvreTopForm"  title="Ajouter au Panier" > 
+                                                                    <i class="fa fa-trash-o"></i></p:commandLink> 
+                                                        </li>
+                                                        </ui:repeat>
+           
+                                                    </ul>
+                                                        <div class="cart-buttons  pull-right">
+                                                            <p:commandLink class="btn btn-dark-gray" rendered="#{homeController.books!=null and homeController.books.size()>0}" actionListener="#{homeController.makeReservation()}" update=":reservationViewForm" oncomplete="PF('ReservationDialog').show()" > Reserver </p:commandLink>
+                                                    </div>
+                                                 </div>
+   
+                                            
+                                            </div>
+                                        </div>
+                                    </div></h:form>
+                                </div>
+                            </div>
+                            
+                            
+ 
+ </ui:composition>
+    </body>
+</html>

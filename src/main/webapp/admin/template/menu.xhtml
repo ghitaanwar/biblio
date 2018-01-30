@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+          
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+        <ui:composition>
+<h:form>
+
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+			<img  src="${facesContext.externalContext.requestContextPath}/admin/resources/img/logo.png" style="margin: -11px auto 0 auto;display: block;z-index: 1;position: relative;" />
+      </div>
+
+      <ul class="sidebar-menu">
+            <li class="active">
+                <h:link outcome="/admin/home/index.xhtml" ><i class="fa fa-home"></i> <span>Acceuil</span></h:link>
+            </li> 
+          
+
+          
+          
+        <li class="treeview">
+            <h:link outcome="/admin/oeuvre/index.xhtml"  disabled="">
+                <i class="fa fa-book"></i> <span>Oeuvre</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </h:link>
+
+          <ul class="treeview-menu">
+            <li class="active">
+                <h:link outcome="/admin/oeuvre/index.xhtml" ><i class="fa fa-th-list"></i> <span>Liste Oeuvre</span></h:link>
+               </li>
+              <li>
+                <h:link outcome="/admin/oeuvre/add.xhtml" ><i class="fa fa-plus"></i> <span>Ajouter Oeuvre</span></h:link>
+                  
+              </li>
+            
+          </ul>
+        </li>          
+          
+          
+        <li>
+            <h:link outcome="/admin/auteur/index.xhtml" >
+            <i class="ion ion-person"></i> <span>Auteur</span>
+            </h:link>
+        </li>  
+          
+        <li>
+            <h:link outcome="/admin/categorie/index.xhtml" >
+            <i class="fa fa-contao"></i> <span>Categorie</span>
+            </h:link>
+        </li>           
+          
+
+      
+		
+     
+        <li>
+            <h:link outcome="/admin/reservation/index.xhtml" >
+            <i class="fa  fa-calendar-plus-o"></i> <span>Reservation</span>
+            </h:link>
+        </li>
+          
+
+        <li class="treeview">
+            <h:link outcome="/admin/emprunte/index.xhtml"  disabled="">
+                <i class="fa fa-ship"></i> <span>Emprunte</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </h:link>
+
+          <ul class="treeview-menu">
+            <li class="active">
+                <h:link outcome="/admin/emprunte/index.xhtml" ><i class="fa fa-th-list"></i> <span>Liste Emprunte</span></h:link>
+               </li>
+              <li>
+                <h:link outcome="/admin/emprunte/add.xhtml" ><i class="fa fa-plus"></i> <span>Ajouter Emprunte</span></h:link>
+                  
+              </li>
+            
+          </ul>
+        </li>          
+          
+          
+        <li>
+            <h:link outcome="/admin/export/index.xhtml" >
+            <i class="fa  fa-bank"></i> <span>Exportation</span>
+            </h:link>
+        </li>
+        <li>
+            <h:link outcome="/admin/site/index.xhtml" style="#{(loginController.admin().droit==1)?'':'display:none;'}" >
+            <i class="fa  fa-wrench"></i> <span>Configuration</span>
+            </h:link>
+        </li>      
+        <li>
+            <h:link outcome="/admin/admin/index.xhtml" style="#{(loginController.admin().droit==1)?'':'display:none;'}"  >
+            <i class="fa  fa-user-plus"></i> <span>Administateur</span>
+            </h:link>
+        </li>          
+          
+          
+
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+ </h:form>
+ 
+ </ui:composition>
+    </body>
+</html>

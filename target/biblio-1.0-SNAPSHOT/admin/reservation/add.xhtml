@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReservationEmprunteDlg" widgetVar="ReservationEmprunteDialog" modal="true" resizable="false" appendTo="@(body)" header="Reservation ">
+            <h:form id="ReservationEmpruntForm">
+                
+           <div class="dialogereserveinfo" style="width:700px;" >    
+
+               <p:dataTable id="reservedialoglist" var="res" selection="#{reservationController.reservtoEmprunt}" value="#{reservationController.reservationItemsbyReservation()}"  rowKey="#{res.id}" class="table table-bordered shop_table cart">
+        <p:column selectionMode="multiple" style="width:50px;text-align:center"/>
+                      
+                        
+                    <p:column headerText="Oeuvres #Reservation #{reservationController.selected.id}">
+                   
+                     
+                                                                            <span class="product-detail">
+                                                                                <a href="#"><strong>#{res.oeuvre.nom}</strong></a>
+                                                                                <span><strong>Auteur</strong> #{res.oeuvre.auteur.nom}</span>
+                                                                                <span><strong>Edition</strong> #{res.oeuvre.edition}</span>
+                                                                                <span><strong>Categorie:</strong> <em>#{res.oeuvre.categorie.nom}</em></span>
+                                                                            </span>
+                       
+                   </p:column>
+
+                 <!--  <p:column headerText="Nom">
+                       <h:outputText value="#{book.nom}" />
+                   </p:column>-->
+
+                                  
+                </p:dataTable>
+                               <span style="margin: -17px 10px 0;display: block;text-align: right;">Nombre item : 3</span>
+                               <p:commandButton id="editButton"  value="Confirmer" class="btn btn-primary btn-xs" icon="ui-icon-search" alt="Voir" update=":growl,:ReservationListForm:datalist" actionListener="#{reservationController.toEmprunte()}"  oncomplete="handleSubmit(args, 'ReservationEmprunteDialog')" />
+           </div>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

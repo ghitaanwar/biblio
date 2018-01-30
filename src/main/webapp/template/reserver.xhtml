@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        
+        <p:dialog id="reservationViewDlg" widgetVar="ReservationDialog" modal="true" resizable="false" appendTo="@(body)" header="" rendered="#{rechecheController.books!=null}">
+            <h:form id="reservationViewForm">
+
+                <div class="dialogereserveinfo" style="width:700px;" >    
+                     
+                    <p:panelGrid columns="4">
+
+                        <h:outputText value="Date Demande"/>     
+                        <p:calendar id="dateDemande" pattern="MM/dd/yyyy" value="#{homeController.datedemande}" readonly="true"   title="#{bundle.EditReservationTitle_dateDemande}"  showOn="button"/>
+                                       
+                        <h:outputText value="Date Remise"/>
+                        <p:calendar id="dateRemise" pattern="MM/dd/yyyy" value="#{homeController.dateremise}" mindate="#{homeController.mindateRemise()}" title="#{bundle.EditReservationTitle_dateDemande}"  showOn="button"/>
+
+                    </p:panelGrid>
+
+                <p:dataTable id="reservedialoglist" var="book" value="#{homeController.books}" class="table table-bordered shop_table cart">
+                  
+                         <p:column headerText="" width="50">
+                   </p:column>                    
+                    
+                    <p:column headerText="Oeuvre">
+                   
+                     
+                                    <span class="product-thumbnail">
+                                        <a href="#"><img  src="${facesContext.externalContext.requestContextPath}/resources/images/book3.png"  style="height:85px;width:80px;"/></a>
+                                    </span>
+                                                                            <span class="product-detail">
+                                                                                <a href="#"><strong>#{book.nom}</strong></a>
+                                                                                <span><strong>Auteur</strong> #{book.auteur.nom}</span>
+                                                                                <span><strong>Edition</strong> #{book.edition}</span>
+                                                                                <span><strong>Categorie:</strong> <em>#{book.categorie.nom}</em></span>
+                                                                            </span>
+                       
+                   </p:column>
+
+                 <!--  <p:column headerText="Nom">
+                       <h:outputText value="#{book.nom}" />
+                   </p:column>-->
+
+                 <p:column headerText="Action" width="100">
+                       <center>    <p:commandLink  class="remove" actionListener="#{homeController.delReservedbook(book)}" update=":growl,:reserveOeuvreTopForm,reservedialoglist"  title="Supprimer" > <i class="fa fa-trash-o"></i></p:commandLink>    </center>              </p:column>
+                                    
+                </p:dataTable>
+
+                    
+                        <p:commandLink class="btn btn-dark-gray btn-go"  actionListener="#{homeController.makeReservation()}"  update=":growl,:reserveOeuvreTopForm,reservedialoglist" > Reserver tous les Articles </p:commandLink>
+                </div>
+                
+                
+            </h:form>
+        </p:dialog> 
+
+    </ui:composition>
+</html>

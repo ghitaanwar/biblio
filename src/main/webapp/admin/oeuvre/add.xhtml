@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../template_admin.xhtml">
+
+
+    <ui:define name="page_name">
+        <h1>Oeuvre <small>Administation</small></h1>                
+    </ui:define>
+      
+
+    <ui:define name="page">
+
+
+
+<div class="box  box-success"> 
+           
+            <div class="box-header with-border ">
+                      <h3 class="box-title">Ajouter Oeuvre :</h3>
+
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                      </div>
+            </div>
+            
+                         <h:form id="OeuvreCreateForm" enctype="multipart/form-data">
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="form-group">
+                            <label>Nom Complet :</label>
+                            <p:inputText id="nom-ad" value="#{oeuvreController.added.nom}"  class="form-control" required="true"  requiredMessage="Nom Obligatoire"/>
+                                        <!-- /.input group -->
+                        </div>
+                    </div> 
+                         
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <label>Auteur :</label>
+                            <div class="date">
+                                    <p:selectOneMenu id="auteur-ad" value="#{oeuvreController.added.auteur}" class="form-control"  style="width:100%;" filter="true" required="true"  requiredMessage="Auteur Obligatoire" >
+                                        <f:selectItems value="#{auteurController.items}"
+                                                       var="auteurItem"
+                                                       itemValue="#{auteurItem}" itemLabel="#{auteurItem.nom}"/>
+                                   </p:selectOneMenu>    
+                            </div> 
+                        </div>
+                    </div>                          
+                         <div class="col-xs-12" style="height:20px;"> </div>
+
+                         
+                         
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <label>Categorie :</label>
+                            <p:selectOneMenu id="categorie" value="#{oeuvreController.added.categorie}"  class="form-control"  style="width:100%;" filter="true"  required="true"  requiredMessage="Categorie Obligatoire" >
+                                <f:selectItems value="#{categorieController.items}"
+                                               var="categorieItem"
+                                               itemValue="#{categorieItem}" itemLabel="#{categorieItem.nom}"/>
+                            </p:selectOneMenu>        
+                        </div>
+                    </div>                            
+                         
+                         
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <label>type :</label>
+                            <p:selectOneMenu value="#{oeuvreController.addType}" id="type" style="width:100%;" class="form-control" required="true" requiredMessage="Type Obligatoire" >
+                                    
+                                <p:ajax listener="#{oeuvreController.drag()}" update="autre,OeuvreCreateForm" process="@form:nom-ad,@form:nom-ad,@form:type,@form:autre,@form:auteur-ad,@form:lang,@form:qte"  />
+                                    <f:selectItem   itemValue="#{null}" itemLabel="Selectionner le  type" />                                    
+                                    <f:selectItems  value="#{oeuvreController.typeList()}" var="item" itemValue="#{item}" itemLabel="#{item}"/>                                
+                                    <f:selectItem   itemValue="#{'type'}" itemLabel="Nouveau type"/>
+                            </p:selectOneMenu>    
+                            <p:outputLabel value="Saisisser le Type" for="autre" rendered="#{oeuvreController.addType.equals('type')}" /> 
+                            <p:inputText value="#{oeuvreController.added.type}" id="autre" rendered="#{oeuvreController.addType.equals('type')}" class="pull-right"  />
+                            <!-- /.input group -->
+                        </div>
+                    </div>                           
+                         
+                         
+                         
+                         
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <label>Lang :</label>
+                            <p:selectOneMenu value="#{oeuvreController.added.lang}" id="lang" style="width:100%;"  class="form-control"  required="true"  requiredMessage="Lang Obligatoire" >
+                                        <f:selectItem itemValue="FR" itemLabel="FR" />
+                                        <f:selectItem itemValue="AR" itemLabel="AR" />
+                                        <f:selectItem itemValue="EN" itemLabel="EN" />
+                                        <f:selectItem itemValue="ES" itemLabel="ES" />
+
+                            </p:selectOneMenu>                                          <!-- /.input group -->
+                        </div>
+                    </div>                          
+                         
+                         
+                                            <div class="col-xs-12" style="height:20px;"> </div>
+                         
+                         
+                         
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <label>quantité :</label>
+                            <p:inputText id="qte" value="#{oeuvreController.added.qte}" style="width:100%;" class="form-control"  required="true"  requiredMessage="QTE Obligatoire" />
+                                        <!-- /.input group -->
+                        </div>
+                    </div>                          
+                         
+ 
+ 
+                         
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <label>Edition :</label>
+                            <p:inputText id="edition" value="#{oeuvreController.added.edition}" style="width:100%;" class="form-control"  required="true"  requiredMessage="Edition Obligatoire"  />
+                                        <!-- /.input group -->
+                        </div>
+                    </div>                             
+                         
+                                            
+                                            
+                         
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <label>Date :</label>
+                            <div class="input-group date">
+                            <p:calendar id="date" pattern="MM/dd/yyyy" value="#{oeuvreController.added.dateCreation}" style="width:100%;"   required="true"  requiredMessage="Edition Obligatoire"   showOn="button"/>       
+                            </div>            <!-- /.input group -->
+                        </div>
+                    </div>                                             
+                                            
+                                            
+
+                                            
+                                            
+                                                 <div class="col-xs-12" style="height:20px;"> </div>
+                    
+                                            
+                                            
+                                                       
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                         
+                            <label>Description :</label>
+                         <div class="">
+                             <p:inputTextarea id="description" value="#{oeuvreController.added.description}" style="    width: 100%;height: 77px;" class="form-control"  />
+                         </div>               <!-- /.input group -->
+                        </div>
+                    </div>                           
+                         
+
+                    <div class="col-xs-8">
+                        <div class="form-group">
+                         
+                            <label>Upload :</label>
+                            <p:fileUpload id="imageUploader" mode="simple" value="#{oeuvreController.file}"  sizeLimit="10000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>                        
+                        </div>
+                    </div>  
+
+
+                         
+                     
+                </div>
+            </div>    
+    
+    
+            <div class="box-footer">
+            <p:commandButton value="Modifier"  id="add" class="btn btn-success btn-lg pull-right"  update=":growl" actionListener="#{oeuvreController.create()}" ajax="false"  /> 
+
+              </div>      
+    
+            </h:form>  
+</div>
+
+
+
+            
+
+       
+            
+               <style>
+                  .ui-fileupload-cancel , .ui-fileupload-upload {
+                      display: none;
+                  }
+              </style>
+              
+            
+        </ui:define>
+        
+          <ui:insert name="script">
+  </ui:insert>
+        
+    </ui:composition>
+
+</html>

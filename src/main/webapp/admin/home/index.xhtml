@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../template_admin.xhtml">
+            
+
+    <ui:define name="page_name">
+                <h1>Acceuil <small>Administation</small></h1>                
+    </ui:define>
+
+    <ui:define name="page">
+
+        
+        
+        
+       <!-- Small boxes (Stat box) -->
+      <div class="row">
+          
+          
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-aqua">
+              <div class="inner"><h3>#{oeuvreController.items.size()}</h3><p>Oeuvre Ajouter </p></div>
+            <div class="icon"><i class="fa fa-book"></i></div>
+            <a href="#" class="small-box-footer">plus d'info  <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        
+        
+      
+        
+        <div class="col-lg-3 col-xs-6">
+          <div class="small-box bg-green">
+              <div class="inner"><h3>#{auteurController.items.size()}</h3><p>Auteur</p></div>
+            <div class="icon"><i class="ion ion-person"></i></div>
+            <a href="#" class="small-box-footer">plus d'info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+          
+          
+        <div class="col-lg-3 col-xs-6">
+          <div class="small-box bg-yellow">
+              <div class="inner"><h3>#{reservationController.items.size()}</h3><p>Reservation</p></div>
+            <div class="icon"><i class="fa  fa-calendar-plus-o"></i></div>
+            <a href="#" class="small-box-footer">plus d'info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+          
+          
+        <div class="col-lg-3 col-xs-6">
+          <div class="small-box bg-red">
+              <div class="inner"><h3>#{empruteItemController.items.size()} </h3><p>Emprunte</p></div>
+            <div class="icon"><i class="fa fa-ship"></i></div>
+            <a href="#" class="small-box-footer">plus d'info<i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+          
+          
+      </div>
+        
+        
+        
+       
+       
+       
+       
+       
+    <div class="row">
+        <div class="col-md-6"> 
+          <div class="box box-danger">
+            <div class="box-header with-border">
+              <h3 class="box-title">Statistique Oeuvre Par Categorie  :</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+              <canvas id="pieChart" style="height: 274px; width: 548px;" height="274" width="548"></canvas>
+            </div>
+          </div>
+        </div>
+        
+        
+
+
+        <div class="col-md-6">
+
+          <div class="box box-success">
+            <div class="box-header with-border">
+              <h3 class="box-title">Nombre de produit disponible par stock</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+              <div class="chart">
+                <canvas id="barChart" style="height: 230px; width: 548px;" height="230" width="548"></canvas>
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+        </div>
+
+
+
+
+        
+      </div>    
+
+        
+
+
+       
+       
+       
+       
+       
+       
+       
+       
+        
+        
+        </ui:define>
+        
+        
+        <ui:define name="default-script">
+            
+            
+            <script src="${facesContext.externalContext.requestContextPath}/admin/resources/js/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="${facesContext.externalContext.requestContextPath}/admin/resources/js/bootstrap.min.js"></script>
+<!-- ChartJS 1.0.1 -->
+<script src="${facesContext.externalContext.requestContextPath}/admin/resources/js/plugins/chartjs/Chart.min.js"></script>
+<!-- FastClick -->
+<script src="${facesContext.externalContext.requestContextPath}/admin//resources/js/plugins/fastclick/fastclick.js"></script>
+
+
+        </ui:define>
+
+        
+    <ui:define name="script">
+
+        <script>
+        
+  $(function () {
+
+
+    //- PIE CHART -
+    //-------------
+    // Get context with jQuery - using jQuery's .get() method.
+    var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
+    var pieChart = new Chart(pieChartCanvas);
+    var PieData = [
+        
+        
+        #{oeuvreController.graph()}
+      
+    ];
+    var pieOptions = {
+      //Boolean - Whether we should show a stroke on each segment
+      segmentShowStroke: true,
+      //String - The colour of each segment stroke
+      segmentStrokeColor: "#fff",
+      //Number - The width of each segment stroke
+      segmentStrokeWidth: 2,
+      //Number - The percentage of the chart that we cut out of the middle
+      percentageInnerCutout: 50, // This is 0 for Pie charts
+      //Number - Amount of animation steps
+      animationSteps: 100,
+      //String - Animation easing effect
+      animationEasing: "easeOutBounce",
+      //Boolean - Whether we animate the rotation of the Doughnut
+      animateRotate: true,
+      //Boolean - Whether we animate scaling the Doughnut from the centre
+      animateScale: false,
+      //Boolean - whether to make the chart responsive to window resizing
+      responsive: true,
+      // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+      maintainAspectRatio: true,
+      //String - A legend template
+    };
+    //Create pie or douhnut chart
+    // You can switch between pie and douhnut using the method below.
+    pieChart.Doughnut(PieData, pieOptions);
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+        var areaChartData = {
+      labels: [#{oeuvreController.graph2().get(0)}],
+      datasets: [
+        {
+          label: "Electronics",
+          fillColor: "rgba(210, 214, 222, 1)",
+          strokeColor: "rgba(210, 214, 222, 1)",
+          pointColor: "rgba(210, 214, 222, 1)",
+          pointStrokeColor: "#c1c7d1",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(220,220,220,1)",
+          data: [#{oeuvreController.graph2().get(1)}]
+        }
+      ]
+    };
+    
+    
+        //-------------
+    //- BAR CHART -
+    //-------------
+    var barChartCanvas = $("#barChart").get(0).getContext("2d");
+    var barChart = new Chart(barChartCanvas);
+    var barChartData = areaChartData;
+    barChartData.datasets[0].fillColor = "#00a65a";
+    barChartData.datasets[0].strokeColor = "#00a65a";
+    barChartData.datasets[0].pointColor = "#00a65a";
+    var barChartOptions = {
+      //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+      scaleBeginAtZero: true,
+      //Boolean - Whether grid lines are shown across the chart
+      scaleShowGridLines: true,
+      //String - Colour of the grid lines
+      scaleGridLineColor: "rgba(0,0,0,.05)",
+      //Number - Width of the grid lines
+      scaleGridLineWidth: 1,
+      //Boolean - Whether to show horizontal lines (except X axis)
+      scaleShowHorizontalLines: true,
+      //Boolean - Whether to show vertical lines (except Y axis)
+      scaleShowVerticalLines: true,
+      //Boolean - If there is a stroke on each bar
+      barShowStroke: true,
+      //Number - Pixel width of the bar stroke
+      barStrokeWidth: 2,
+      //Number - Spacing between each of the X value sets
+      barValueSpacing: 5,
+      //Number - Spacing between data sets within X values
+      barDatasetSpacing: 1,
+      //String - A legend template
+      //Boolean - whether to make the chart responsive
+      responsive: true,
+      maintainAspectRatio: true
+    };
+
+    barChartOptions.datasetFill = false;
+    barChart.Bar(barChartData, barChartOptions);
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  });    
+   </script>  
+        
+        
+        <script src="${facesContext.externalContext.requestContextPath}/admin/resources/js/jquery-ui.min.js"></script>
+
+        <script src="${facesContext.externalContext.requestContextPath}//admin/resources/js/app.min.js"></script>
+
+
+
+    </ui:define>        
+        
+  
+        
+        
+        
+        
+    </ui:composition>
+
+</html>

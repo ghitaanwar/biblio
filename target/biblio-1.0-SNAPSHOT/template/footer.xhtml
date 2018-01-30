@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+        <ui:composition>
+            <h:form>
+                <!-- Start: Footer -->
+                <footer class="site-footer">
+                    <div class="container">
+
+
+                        <div id="footer-widgets">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 widget-container">
+                                    <div id="text-2" class="widget widget_text">
+                                        <h3 class="footer-widget-title">A Propos Bibliothéque</h3>
+                                        <span class="underline left"></span>
+                                        <div class="textwidget">
+                                            Bibliothéque  Faculté des Sciences et Techniques Tanger 
+                                        </div>
+                                        <address>
+                                            <div class="info">
+                                                <i class="fa fa-location-arrow"></i>
+                                                <span>#{homeController.site().adress}</span>
+                                            </div>
+                                            <div class="info">
+                                                <i class="fa fa-envelope"></i>
+                                                <span><a href="mailto:#{homeController.site().email}">#{homeController.site().email} </a></span>
+                                            </div>
+                                            <div class="info">
+                                                <i class="fa fa-phone"></i>
+                                                <span><a href="#">#{homeController.site().tel}</a></span>
+                                            </div>
+                                        </address>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-6 widget-container">
+                                    <div id="nav_menu-2" class="widget widget_nav_menu">
+                                        <h3 class="footer-widget-title">Lien Utile</h3>
+                                        <span class="underline left"></span>
+                                        <div class="menu-quick-links-container">
+                                            <ul id="menu-quick-links" class="menu">
+                                                <li><a href="#">Acceuil</a></li>
+                                                <li><a href="#">Recheche Oeuvre</a></li>                                    
+                                                <li><a href="#">Login</a></li>
+                                                <li><a href="#">Inscription</a></li>
+                                                <li><a href="http://www.fstt.ac.ma/Portail/index.php" target="_blank">Lien vers FSTT</a></li>    
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix hidden-lg hidden-md hidden-xs tablet-margin-bottom"></div>
+                                <div class="col-md-2 col-sm-6 widget-container">
+                                    <div id="text-4" class="widget widget_text">
+                                        <h3 class="footer-widget-title">horaires </h3>
+                                        <span class="underline left"></span>
+                                        <div class="timming-text-widget">
+                                            <time datetime="">Lun - jeu 9 am - 6 pm</time>
+                                            <time datetime="">Ven: 9 am - 6 pm</time>
+                                            <time datetime="">Sam: 9 am - 12 pm</time>
+
+                                        </div>
+                                    </div>			
+                                </div>
+                                <!--        <div class="col-md-4 col-sm-6 widget-container">
+                                            <div class="widget twitter-widget">
+                                                <h3 class="footer-widget-title">Latest Tweets</h3>
+                                                <span class="underline left"></span>
+                                                <div id="twitter-feed">
+                                                    <ul>
+                                                        <li>
+                                                            <p><a href="#">@TemplateLibraria</a> Sed ut perspiciatis unde omnis iste natus error sit voluptatem. <a href="#">template-libraria.com</a></p>
+                                                        </li>
+                                                        <li>
+                                                            <p><a href="#">@TemplateLibraria</a> Sed ut perspiciatis unde omnis iste natus error sit voluptatem. <a href="#">template-libraria.com</a></p>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>			
+                                        </div>-->
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                    <div class="sub-footer">
+                        <div class="container">
+                            <div class="row">
+                                <div class="footer-text col-md-3">
+                                    <p>&copy; 2018 FST TANGER. All rights reserved.</p>
+                                </div>
+                                <div class="col-md-9 pull-right">
+                                    <ul></ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </h:form>
+
+        </ui:composition>
+    </body>
+</html>

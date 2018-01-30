@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../template_admin.xhtml">
+
+
+    <ui:define name="page_name">
+        <h1>Admin <small>Administation</small></h1>                
+    </ui:define>
+      
+
+    <ui:define name="page">
+
+
+        <div class="box box-primary"> 
+           
+            <div class="box-header ">
+                      <h3 class="box-title">List Admin :</h3>
+
+            </div>     
+            <div class="box-body">
+     
+            <h:form id="AdminListForm">
+                    <p:dataTable id="datalist" value="#{adminController.items}" var="item"
+                                 selectionMode="single" selection="#{adminController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton  editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton  editButton deleteButton"/>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Non Complet"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nom}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Utilisateur"/>
+                            </f:facet>
+                            <h:outputText value="#{item.username}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Pass"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pass}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Droit"/>
+                            </f:facet>
+                            <center> <span class="label #{(item.droit==1)?'label-success':'label-danger'}">      #{item.droit==1?"Administrateur":"bibliothécaire"} </span> </center>
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"  class="btn btn-success btn-xs" value="Ajouter" actionListener="#{adminController.prepareCreate}" update=":AdminCreateForm" oncomplete="PF('AdminCreateDialog').show()"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" class="btn btn-warning btn-xs" value="Modifier" update=":AdminEditForm" oncomplete="PF('AdminEditDialog').show()" disabled="#{empty adminController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  class="btn btn-danger btn-xs" value="Supprimer" actionListener="#{adminController.destroy}" update=":growl,datalist" disabled="#{empty adminController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+            </h:form>
+ </div></div>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

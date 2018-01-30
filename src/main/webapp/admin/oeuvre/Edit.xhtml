@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OeuvreEditDlg" widgetVar="OeuvreEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Edit Oeuvre">
+            <h:form id="OeuvreEditForm" enctype="multipart/form-data">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="6" rendered="#{oeuvreController.selected != null}">
+
+                        <p:outputLabel value="Nom" for="nom" />
+                        <p:inputText id="nom" value="#{oeuvreController.selected.nom}" title="#{bundle.EditOeuvreTitle_nom}" />
+                        
+                        
+                      
+                        <p:outputLabel value="Auteur" for="auteur" />
+                        <p:selectOneMenu id="auteur" value="#{oeuvreController.selected.auteur}" filter="true" style="width:100%" required="true" >
+                            <f:selectItem itemLabel="Selectionner Oeuvre"/>
+                            <f:selectItems value="#{auteurController.items}"
+                                           var="auteurItem"
+                                           itemValue="#{auteurItem}" itemLabel="#{auteurItem.nom}"/>
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="Categroie" for="categorie" />
+                        <p:selectOneMenu id="categorie" value="#{oeuvreController.selected.categorie}"  filter="true" style="width:100%" required="true" >
+                            <f:selectItem itemLabel="Selectionner Categorie"/>
+                            <f:selectItems value="#{categorieController.itemsAvailableSelectOne}"
+                                           var="categorieItem"
+                                           itemValue="#{categorieItem}" itemLabel="#{categorieItem.nom}"/>
+                        </p:selectOneMenu>
+
+
+                        <p:outputLabel value="Lang" for="lang" />
+                            <p:selectOneMenu value="#{oeuvreController.selected.lang}" id="lang"  class="" filter="true" style="width:100%" required="true" >
+                                        <f:selectItem itemValue="FR" itemLabel="FR" />
+                                        <f:selectItem itemValue="AR" itemLabel="AR" />
+                                        <f:selectItem itemValue="EN" itemLabel="EN" />
+                                        <f:selectItem itemValue="ES" itemLabel="ES" />
+
+                        </p:selectOneMenu>    
+                            
+                            
+                          <p:outputLabel value="Date" for="dateCreation" />
+                        <p:calendar id="dateCreation" pattern="MM/dd/yyyy" value="#{oeuvreController.selected.dateCreation}" title="#{bundle.EditOeuvreTitle_dateCreation}"  showOn="button" required="true"/>
+                                                   
+                        
+                        <p:outputLabel value="Type" for="edition" />
+                        <p:inputText id="type" value="#{oeuvreController.selected.type}" title="#{bundle.EditOeuvreTitle_edition}" required="true" />
+                                              
+
+                        
+                        <p:outputLabel value="Edition" for="edition" />
+                        <p:inputText id="edition" value="#{oeuvreController.selected.edition}" title="#{bundle.EditOeuvreTitle_edition}" required="true" />
+                        
+
+                        <p:outputLabel value="Quantité" for="qte" />
+                        <p:inputText id="qte" value="#{oeuvreController.selected.qte}" title="#{bundle.EditOeuvreTitle_qte}" required="true"/>
+                        
+
+
+
+                        <p:outputLabel value="description" for="description" />
+                        <p:inputText id="description" value="#{oeuvreController.selected.description}" title="#{bundle.EditOeuvreTitle_description}" />
+                       
+                        <p:outputLabel value="Image"  />
+                        <img src="#{oeuvreController.showimg(oeuvreController.selected)}"  width="80px" rendered="#{oeuvreController.showimg(oeuvreController.selected)!=null}" />
+                            
+                                                    <p:outputLabel value="Upload" for="imageUploader" />
+
+                            <p:fileUpload id="imageUploader" mode="simple" value="#{oeuvreController.file}"  sizeLimit="10000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>                        
+
+                        
+                    </p:panelGrid>
+                    <p:commandButton  class="btn btn-warning btn-xs" actionListener="#{oeuvreController.update}" value="#{bundle.Save}" update="display,:OeuvreListForm:datalist,:growl" ajax="false" oncomplete="handleSubmit(args, 'OeuvreEditDialog');" />
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../template_admin.xhtml">
+
+
+    <ui:define name="page_name">
+        <h1>Emprunte <small>Administation</small></h1>                
+    </ui:define>
+      
+
+    <ui:define name="page">
+
+
+        <div class="box box-warning box-primary"> 
+           
+            <div class="box-header with-border">
+                      <h3 class="box-title">Recherche Reservation :</h3>
+
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                      </div>
+            </div>
+                    <h:form id="RechercheForm">
+            
+            <div class="box-body">
+                <div class="row">
+                        
+                    <div class="col-xs-3">
+                        <div class="form-group">
+      
+                            <label>CNE :</label>
+                            <p:selectOneMenu id="cne" value="#{empruteController.cne}" filter="true" filterMatchMode="startsWith" class="form-control"  style="width:100%;"  >
+                                <f:selectItem itemValue="#{null}" itemLabel="Tous les Etudiant" />                                    
+                                <f:selectItems value="#{etudiantController.items}"   var="item"  itemValue="#{item.cne}" itemLabel="#{item.cne}-#{item.toString()}"/>
+                            </p:selectOneMenu>                                        <!-- /.input group -->
+                        </div>                            
+                           <!-- <p:inputText id="cne" value="#{empruteController.cne}"  class="form-control"  />-->
+                                        <!-- /.input group -->
+
+                    </div>                    
+                    
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label>Oeuvre :</label>
+                            <p:selectOneMenu id="oeuvre" value="#{empruteController.oeuvre}" filter="true" class="form-control"  style="width:100%;" >
+                                <f:selectItem itemValue="#{null}" itemLabel="Tous les Oeuvres" />                                    
+                                <f:selectItems value="#{oeuvreController.items}"   var="oeuvreItem"  itemValue="#{oeuvreItem}" itemLabel="#{oeuvreItem.nom}"/>
+                                </p:selectOneMenu>                                        <!-- /.input group -->
+                        </div>
+
+                    </div>
+
+                <div class="col-xs-3">
+                        <div class="form-group">
+                            <label>Etat :</label>
+                            <div class=" date">
+                                <p:selectOneMenu value="#{empruteController.etat}" id="etat" class="form-control"  style="width:100%;" >
+                                    <f:selectItem itemValue="-1" itemLabel="Tous" />
+                                    <f:selectItem itemValue="0" itemLabel="Non Rendu" />
+                                    <f:selectItem itemValue="1" itemLabel="Rendu" />
+                                    
+                                </p:selectOneMenu>
+                            </div>
+                                <!-- /.input group -->
+                        </div>
+                </div> 
+    
+<div class="col-xs-3">
+
+                </div>                     
+                        
+                <div class="col-xs-3">
+                        <div class="form-group">
+                            <label>Depot Prevue Min :</label>
+                            <div class=" date">
+                                <p:calendar id="min" pattern="MM/dd/yyyy" value="#{empruteController.min}" title="#{bundle.EditReservationTitle_dateRemise}"  showOn="button"/>
+                            </div>
+                        </div>
+                </div>   
+
+
+                <div class="col-xs-3">
+                        <div class="form-group">
+                            <label>Depot Prevue Max :</label>
+                            <div class=" date">
+                                <p:calendar id="max" pattern="MM/dd/yyyy" value="#{empruteController.max}" title="#{bundle.EditReservationTitle_dateRemise}"  showOn="button"/>
+                            </div>
+                        </div>
+                </div>    
+
+
+      
+                </div>        
+            </div>
+            
+            
+            <div class="box-footer">
+                <p:commandButton value="chercher"  id="add" class="btn btn-success btn-lg pull-right "  update="RechercheForm,:EmpruteItemListForm:datalist"    />
+              </div>   
+                     
+
+
+                </h:form>               
+            
+        </div>
+
+
+
+
+
+
+
+
+
+        
+        
+        
+        <div class="box  box-primary"> 
+           
+            <div class="box-header ">
+                      <h3 class="box-title"> Emprunte List :</h3>
+            </div>
+            
+            
+            <div class="box-body">          
+
+                <h:form id="EmpruteItemListForm">
+                    <p:dataTable id="datalist" value="#{empruteController.searchEmpruteitems()}" var="item"
+                                 
+                                 paginator="false"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEmpruteItemTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="CNE"/>
+                            </f:facet>
+                            <h:outputText value="#{item.emprute.etudiant.toString()}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEmpruteItemTitle_oeuvre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.oeuvre.nom}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date DepotPrevue"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateDepotPrevue}"><f:convertDateTime pattern="MM/dd/yyyy" /></h:outputText>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="DateDepot Effectife"/>
+                            </f:facet>
+                            <center>
+                            <span class="label #{item.datedepoteffectif!=null?'label-success':'label-danger'}">
+                                 #{item.datedepoteffectif==null?'Non Rendu':'Rendu le '}
+
+                            <h:outputText value="#{item.datedepoteffectif}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                            </span></center>
+                        </p:column>
+
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Action"/>                                
+                            </f:facet>
+                            <p:commandButton id="rendreButton" class="btn btn-success btn-xs"  value="Rendre" actionListener="#{empruteController.rendre(item)}"  disabled="#{item.datedepoteffectif!=null}" update=":growl,datalist,:EmpruteItemListForm" />
+                            <p:commandButton id="sendButton" class="btn btn-warning btn-xs"  value="Alert" actionListener="#{empruteController.mailAlerte(item)}"  disabled="#{item.datedepoteffectif!=null}" update=":growl,datalist,:EmpruteItemListForm" />
+                        </p:column>
+
+                    </p:dataTable>
+            </h:form>
+            </div>
+        </div>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

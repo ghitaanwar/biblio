@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../template_admin.xhtml">
+
+
+    <ui:define name="page_name">
+        <h1>Export <small>Administation</small></h1>                
+    </ui:define>
+      
+
+    <ui:define name="page">
+
+
+
+        
+        <div class="box box-warning box-primary"> 
+           
+            <div class="box-header with-border">
+                      <h3 class="box-title">Exporter Oeuvre :</h3>
+
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                      </div>
+            </div>
+            
+            <div class="box-body">
+                <div class="row">
+                     <h:form id="RechercheCreateForm">
+                    
+
+
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label>Auteur :</label>
+                            <div class=" date">
+                                <p:selectOneMenu value="#{oeuvreController.auteur}" id="auteur" class="form-control"  style="width:100%;" filter="True">
+                                    <f:selectItem itemValue="#{null}" itemLabel="Selectionner auteur" />
+                                    <f:selectItems value="#{auteurController.items}"  var="item" itemValue="#{item}" itemLabel="#{item.nom}" />                  
+                                </p:selectOneMenu>
+                            </div>
+                                <!-- /.input group -->
+                        </div>
+                    </div>   
+
+
+
+                         
+                         
+                    <div class="col-xs-3">
+
+                        <div class="form-group">
+                            <label>Categorie :</label>
+                            <div class=" date">
+                                <p:selectOneMenu value="#{oeuvreController.categorie}" id="categorie"  style="width:100%;" class="form-control" filter="True" >
+                                    <f:selectItem itemValue="#{null}" itemLabel="Seletioner Categorie" />
+                                    <f:selectItems value="#{categorieController.items}" var="item" itemValue="#{item}" itemLabel="#{item.nom}" />                                
+                                </p:selectOneMenu>
+                            </div>
+                                <!-- /.input group -->
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label>Disponible :</label>
+                            <div class=" date">
+                                <p:selectOneMenu value="#{oeuvreController.dispo}" id="dispo" class="form-control"  style="width:100%;">
+                                    <f:selectItem itemValue="#{false}" itemLabel="Tous les Oeuvre" />
+                                    <f:selectItem itemValue="#{true}" itemLabel="Oeuvre Disponible" />                  
+                                </p:selectOneMenu>
+                            </div>
+                                <!-- /.input group -->
+                        </div>
+                    </div>  
+                         
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label>Type :</label>
+                            <div class=" date">
+                                <p:selectOneMenu value="#{oeuvreController.type}" id="type" style="width:100%;" class="form-control" >
+                                    <f:selectItem itemValue="#{null}" itemLabel="Seletioner Type" />
+                                    <f:selectItems  value="#{oeuvreController.typeList()}" var="item" itemValue="#{item}" itemLabel="#{item}"/>                                
+                                </p:selectOneMenu>
+                            </div>
+                                <!-- /.input group -->
+                        </div>
+                    </div>
+
+
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label>Language :</label>
+                            <div class=" date">
+                                <p:selectOneMenu value="#{oeuvreController.lang}" id="lang" style="width:100%;" class="form-control" >
+                                    <f:selectItem itemValue="#{null}" itemLabel="tous les Langue" />
+                                    <f:selectItem itemValue="FR" itemLabel="FR" />
+                                    <f:selectItem itemValue="AR" itemLabel="AR" />
+                                    <f:selectItem itemValue="EN" itemLabel="EN" />
+                                    <f:selectItem itemValue="ES" itemLabel="ES" />
+                                   
+                                </p:selectOneMenu>
+                            </div>
+                                <!-- /.input group -->
+                        </div>
+                    </div> 
+                         
+                    <div class="col-xs-3">
+                         
+                        <div class="form-group">
+<br />
+<p:commandButton value="Exporter" actionListener="#{oeuvreController.exporttopdf()}" id="add" class="btn btn-primary btn-block "  update="RechercheCreateForm"  ajax="false"   /> <br/>
+                            
+                        </div>                         
+                    </div>     
+                         
+                     </h:form>
+                         
+                </div>
+            </div>
+        </div>                 
+
+        
+        
+        
+
+        
+        
+
+
+        <div class="box box-warning box-primary"> 
+           
+            <div class="box-header with-border">
+                      <h3 class="box-title">Exporter Emprute :</h3>
+
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                      </div>
+            </div>
+                    <h:form id="RechercheForm">
+            
+            <div class="box-body">
+                <div class="row">
+                        
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label>CNE :</label>
+                            <p:selectOneMenu id="etudiant" value="#{empruteController.cne}" filter="true" filterMatchMode="startsWith" class="form-control"  style="width:100%;"  >
+                                <f:selectItem itemValue="#{null}" itemLabel="Tous les Etudiant" />                                    
+                                <f:selectItems value="#{etudiantController.items}"   var="item"  itemValue="#{item.cne}" itemLabel="#{item.cne}-#{item.toString()}"/>
+                            </p:selectOneMenu> 
+                            
+                        </div>
+
+                    </div>                    
+                    
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <label>Oeuvre :</label>
+                            <p:selectOneMenu id="oeuvre" value="#{empruteController.oeuvre}" filter="true" class="form-control"  style="width:100%;" >
+                                <f:selectItem itemValue="#{null}" itemLabel="Tous les Oeuvres" />                                    
+                                <f:selectItems value="#{oeuvreController.items}"   var="oeuvreItem"  itemValue="#{oeuvreItem}" itemLabel="#{oeuvreItem.nom}"/>
+                                </p:selectOneMenu>                                        <!-- /.input group -->
+                        </div>
+
+                    </div>
+
+                <div class="col-xs-3">
+                        <div class="form-group">
+                            <label>Etat :</label>
+                            <div class=" date">
+                                <p:selectOneMenu value="#{empruteController.etat}" id="etat" class="form-control"  style="width:100%;" >
+                                    <f:selectItem itemValue="-1" itemLabel="Tous" />
+                                    <f:selectItem itemValue="0" itemLabel="Non Rendu" />
+                                    <f:selectItem itemValue="1" itemLabel="Rendu" />
+                                    
+                                </p:selectOneMenu>
+                            </div>
+                                <!-- /.input group -->
+                        </div>
+                </div> 
+    
+
+                <div class="col-xs-3">
+                        <div class="form-group">
+                            <label>Depot Prevue Min :</label>
+                            <p:calendar id="min" pattern="MM/dd/yyyy" value="#{empruteController.min}" title="#{bundle.EditReservationTitle_dateRemise}" class="form-control" style="border:0;" showOn="button"/>
+                        </div>
+                </div>   
+
+
+                <div class="col-xs-3 pull-left">
+                        <div class="form-group">
+                            <label>Depot Prevue Max :</label>
+                            <div class=" date">
+                                <p:calendar id="max" pattern="MM/dd/yyyy" value="#{empruteController.max}" title="#{bundle.EditReservationTitle_dateRemise}" style="border:0;" class="form-control" showOn="button"/>
+                            </div>
+                        </div>
+                </div>    
+
+
+                        <div class="col-xs-3">
+                         
+                        <div class="form-group">
+<br />
+                <p:commandButton value="Exporter" actionListener="#{empruteController.exporttopdf()}" id="add" class="btn btn-primary btn-block"   update="RechercheForm" ajax="false"   />
+                            
+                        </div>                         
+                    </div>                     
+                    
+                    
+      
+                </div>        
+            </div>
+            
+            
+ 
+                     
+
+
+                </h:form>               
+            
+        </div>
+
+
+              
+            
+        </ui:define>
+        
+          <ui:insert name="script">
+  </ui:insert>
+        
+    </ui:composition>
+
+</html>

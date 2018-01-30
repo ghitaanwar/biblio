@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+          
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+        <ui:composition>
+        <!-- Start: Header Section -->
+        <header id="header" class="navbar-wrapper">
+            <div class="container">
+                <div class="row">
+                    <nav class="navbar navbar-default">
+                        <div class="col-sm-12">
+                           
+
+            <ui:include src="toolbar.xhtml" />
+
+                            
+                            
+                            
+                            <div class="bg-light">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="navbar-header">
+                                            <div class="navbar-brand">
+                                                <h1>
+                                                    <a href="index.html">
+                                                        <img src="${facesContext.externalContext.requestContextPath}/resources/images/bib.png" alt="LIBRARIA" />
+                                                    </a>
+                                                </h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="navbar-collapse hidden-sm hidden-xs">
+                                            <ul class="nav navbar-nav">
+                                                <li class="dropdown #{homeController.pageActive('home')}">
+                                                    <a data-toggle="dropdown" class="dropdown-toggle disabled" href="home.xhtml">Acceuil</a>
+                                                   
+                                                </li>
+
+                                                <li class="#{homeController.pageActive('recherche')}"><a href="recherche.xhtml">Recherche</a></li>
+                                                <li class="#{homeController.pageActive('reservation')}"><a href="reservation.xhtml">Vos Reservations</a></li>
+                                                <li class="#{homeController.pageActive('emprute')}"><a href="emprute.xhtml">Vos telechargements</a></li>
+                                                <li><a href="http://www.fstt.ac.ma/Portail/index.php" target="_blank"> Home FSTT</a></li>
+												
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        
+                        <ui:include src="menu-mob.xhtml" />
+                        
+                        
+                        
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <!-- End: Header Section -->
+
+ 
+ </ui:composition>
+    </body>
+</html>

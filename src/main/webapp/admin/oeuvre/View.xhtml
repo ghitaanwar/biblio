@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OeuvreViewDlg" widgetVar="OeuvreViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Oeuvre : ">
+            <h:form id="OeuvreViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="6" rendered="#{oeuvreController.selected != null}">
+
+                        <h:outputText value="Nom" style="font-weight: bold"/>
+                        <h:outputText value="#{oeuvreController.selected.nom}" title="#{bundle.ViewOeuvreTitle_nom}"/>
+                        <h:outputText value="Date Creation" style="font-weight: bold"/>
+                        <h:outputText value="#{oeuvreController.selected.dateCreation}" title="#{bundle.ViewOeuvreTitle_dateCreation}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="Auteur" style="font-weight: bold"/>
+                        <h:outputText value="#{oeuvreController.selected.auteur.nom}" title="#{bundle.ViewOeuvreTitle_auteur}"/>
+                        
+
+                        <h:outputText value="Type" style="font-weight: bold"/>
+                        <h:outputText value="#{oeuvreController.selected.type}"/>
+                        
+                        <h:outputText value="Categorie" style="font-weight: bold"/>
+                        <h:outputText value="#{oeuvreController.selected.categorie.nom}" title="#{bundle.ViewOeuvreTitle_categorie}"/>
+                        
+                        <h:outputText value="Lang" style="font-weight: bold"/>
+                        <h:outputText value="#{oeuvreController.selected.lang}" title="#{bundle.ViewOeuvreTitle_lang}"/>
+                        
+                        <h:outputText value="Edition" style="font-weight: bold"/>
+                        <h:outputText value="#{oeuvreController.selected.edition}" title="#{bundle.ViewOeuvreTitle_edition}"/>
+                        
+                        <h:outputText value="Description" style="font-weight: bold"/>
+                        <h:outputText value="#{oeuvreController.selected.description}" title="#{bundle.ViewOeuvreTitle_description}"/>
+                                               
+                        <h:outputText value="Like" style="font-weight: bold"/>
+                        <h:outputText value="#{oeuvreController.selected.rate}" title="#{bundle.ViewOeuvreTitle_rate}"/>
+                        
+                        <h:outputText value="#Quantité" style="font-weight: bold"/>
+                        <h:outputText value="#{oeuvreController.selected.qte}" title="#{bundle.ViewOeuvreTitle_qte}"/>
+                        
+                        <h:outputText value="NOmbreb Emprute" style="font-weight: bold"/>
+                        <h:outputText value="#{oeuvreController.selected.nbemprute}" title="#{bundle.ViewOeuvreTitle_nbemprute}"/>
+                        
+                        <h:outputText value="nombre Total Emprute" style="font-weight: bold"/>
+                        <h:outputText value="#{oeuvreController.selected.nbtotalemprute}" title="#{bundle.ViewOeuvreTitle_nbtotalemprute}"/>
+                        
+                                                
+                        <h:outputText value="Image" style="font-weight: bold" rendered="#{oeuvreController.selected.image!=null and !oeuvreController.selected.image.equals('')}"/>
+                        <img src="#{oeuvreController.showimg(oeuvreController.selected)}"  width="80px" rendered="#{oeuvreController.showimg(oeuvreController.selected)!=null}" />
+                    </p:panelGrid>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

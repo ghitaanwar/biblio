@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReservationItemViewDlg" widgetVar="ReservationItemViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewReservationItemTitle}">
+            <h:form id="ReservationItemViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{reservationItemController.selected != null}">
+                        <h:outputText value="#{bundle.ViewReservationItemLabel_id}"/>
+                        <h:outputText value="#{reservationItemController.selected.id}" title="#{bundle.ViewReservationItemTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewReservationItemLabel_demande}"/>
+                        <h:outputText value="#{reservationItemController.selected.demande}" title="#{bundle.ViewReservationItemTitle_demande}"/>
+                        <h:outputText value="#{bundle.ViewReservationItemLabel_oeuvre}"/>
+                        <h:outputText value="#{reservationItemController.selected.oeuvre}" title="#{bundle.ViewReservationItemTitle_oeuvre}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ReservationItemViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      >
+    
+    <ui:composition template="template-site.xhtml"> 
+        
+<ui:define name="titre"> | Acceuil</ui:define>        
+        
+<ui:define name="home">
+        <f:event type="preRenderView" listener="#{homeController.setPage('home')}" /> 
+
+            <!-- Start: Slider Section -->
+        <div data-ride="carousel" class="carousel slide" id="home-v1-header-carousel">
+            <!-- Carousel slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <figure>
+                        <img alt="Home Slide" src="${facesContext.externalContext.requestContextPath}/resources/images/slide.png" />
+                    </figure>
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h3>Votre Bibliothéque en ligne!</h3>
+                        </div>
+                    </div>
+                </div>
+				
+                <div class="item">
+                    <figure>
+                        <img alt="Home Slide" src="${facesContext.externalContext.requestContextPath}/resources/images/slide2.png" />
+                    </figure>
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h3>Votre Bibliothéque en ligne!</h3>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- End: Slider Section -->
+    <h:form id="home-forme">
+
+        <!-- Start: Search Section -->
+        <section class="search-filters">
+            <div class="container">
+                <div class="filter-box">
+                    <h3>Qu'est ce que vous cherchez ?</h3>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="form-group">
+                                <label class="sr-only" for="keywords">Search by Keyword</label>
+                                <p:inputText class="form-control padding-input" value="#{rechecheController.nom}" placeholder="Titre du Oeuvre" />
+               
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <p:selectOneMenu filter="true" filterMatchMode="startsWith" value="#{rechecheController.categorie}" id="categoriehome" style="width:100%;" >
+                                    <f:selectItem itemLabel="Selectionner Gategorie"  value="#{null}" noSelectionOption="true" rendered="false" />
+                                    <f:selectItems  value="#{categorieController.items}" var="cat" itemValue="#{cat}" itemLabel="#{cat.nom}"   />
+                                    
+                                </p:selectOneMenu>
+
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <p:selectOneMenu  filter="true" filterMatchMode="startsWith" value="#{rechecheController.type}" id="auteurhome" style="width:100%;"  >
+                                    <f:selectItem itemLabel="Selectionner Le type"  value="#{null}" noSelectionOption="true" />
+                                    <f:selectItems  value="#{oeuvreController.getOeuvreType()}" var="cat" itemValue="#{cat}" itemLabel="#{cat}"   />
+                                    
+                                </p:selectOneMenu>
+
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-2 col-sm-6">
+                            <div class="form-group">
+                                <p:commandButton value="RECHERCHE" class="buttonhome" action="#{rechecheController.rechercheRD()}"/>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </section>
+        <!-- End: Search Section -->
+
+		
+    </h:form>	
+		
+		
+		
+		
+		
+		<section class="features">
+            <div class="container-fluid">
+                <div class="row">
+                    <ul>
+                        
+                        
+                        <ui:repeat value="#{categorieController.getListMaxCat(6)}" var="cat" >
+                            <li class="#{homeController.couleurAndFont(cat.id)}">
+                            <div class="feature-box">
+                                <i class='fa #{cat.icon==null || cat.icon.equals("")==true?"fa-book":cat.icon}'></i>
+                                <h3>#{cat.nom}</h3>
+                                <h:form>
+                                <p:commandLink class="yellow" actionListener="#{rechecheController.CarousrelCategorie(cat)}" >
+
+                                    Voir La Section  <i class="fa fa-long-arrow-right"></i></p:commandLink></h:form>
+                               
+                            </div>
+                        </li>
+                        </ui:repeat>
+
+                       
+                    </ul>
+                </div>
+            </div>
+        </section>
+</ui:define>        
+     
+        
+        
+        
+        
+<ui:define name="style">
+    
+    <style>
+
+.buttonhome {
+    height: 56px;
+}
+.buttonhome:hover {
+    height: 56px;
+    background-color: #ff4e03;
+    color:#fff;
+}
+    </style>
+    
+</ui:define>        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+    </ui:composition>
+    
+
+
+</html>
+

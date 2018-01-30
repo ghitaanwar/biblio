@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmpruteViewDlg" widgetVar="EmpruteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#Emprute #{empruteController.selected.etudiant.cne} - #{empruteController.selected.etudiant} ">
+            <h:form id="EmpruteViewForm">
+                
+           <div class="dialogereserveinfo" style="width:900px;" >    
+
+               <p:dataTable id="datalist" var="item" value="#{empruteController.empruteitemslist()}" class="table table-bordered shop_table cart">
+                   
+                    <p:column headerText="" width="50">
+                    </p:column>                        
+                        
+                   <p:column headerText="Oeuvres ">
+                   
+                     
+                                    <span class="product-thumbnail">
+                                        <a href="#"><img  src="${item.oeuvre.image==null?oeuvreController.image:oeuvreController.image}"  style="height:85px;width:80px;"/></a>
+                                    </span>
+                                                                            <span class="product-detail">
+                                                                                <a href="#"><strong>#{item.oeuvre.nom}</strong></a>
+                                                                                <span><strong>Auteur</strong> #{item.oeuvre.auteur.nom}</span>
+                                                                                <span><strong>Edition</strong> #{item.oeuvre.edition}</span>
+                                                                                <span><strong>Categorie:</strong> <em>#{item.oeuvre.categorie.nom}</em></span>
+                                                                            </span>
+                       
+                        </p:column>
+
+                       <p:column width="160">
+                            <f:facet name="header">
+                                <h:outputText value="Date DepotPrevue"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateDepotPrevue}"><f:convertDateTime pattern="MM/dd/yyyy" /></h:outputText>
+                        </p:column>
+                        
+                        <p:column width="160">
+                            <f:facet name="header">
+                                <h:outputText value="DateDepot Effectife"/>
+                            </f:facet>
+                            <center>
+                            <span class="label #{item.datedepoteffectif!=null?'label-success':'label-danger'}">
+                                 #{item.datedepoteffectif==null?'Non Rendu':'Rendu le '}
+
+                            <h:outputText value="#{item.datedepoteffectif}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                            </span></center>
+                        </p:column>
+
+                        
+                        <p:column  width="160">
+                            <f:facet name="header">
+                                <h:outputText value="Action"/>                                
+                            </f:facet>
+                            <p:commandButton id="rendreButton" class="btn btn-success btn-xs"  value="Rendre" actionListener="#{empruteController.rendre(item)}"  disabled="#{item.datedepoteffectif!=null}" update=":growl,datalist,:EmpruteListForm:datalist" />
+                            <p:commandButton id="sendButton" class="btn btn-warning btn-xs"  value="Alert" actionListener="#{empruteController.mailAlerte(item)}"  disabled="#{item.datedepoteffectif!=null}" update=":growl,datalist,:EmpruteListForm:datalist" />
+                        </p:column>
+
+                                 
+                </p:dataTable>
+           </div>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

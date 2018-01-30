@@ -1,0 +1,140 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <h:head>
+  <title>FSTT Bibliotéque</title>
+  <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css' />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i%7CLato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
+  <link href="${facesContext.externalContext.requestContextPath}/resources/css/primefaces.css" rel="stylesheet" type="text/css" />
+  <link href="${facesContext.externalContext.requestContextPath}/resources/css/style.css" rel="stylesheet" type="text/css" />
+  <link href="${facesContext.externalContext.requestContextPath}/resources/css/login.css" rel="stylesheet" type="text/css" />
+</h:head>
+
+<body>
+            <p:growl id="growl" life="3000" />
+
+    
+    <img src="${facesContext.externalContext.requestContextPath}/resources/images/logo-login.png" class="logo" />
+    
+  <div id="login-panel">
+      
+      <ul class="tab-group">
+        <li class="tab active" ><a href="#signup" style="border-top-left-radius:4px;">Etudiant</a></li>
+        <li class="tab"><a href="#login">Inscription</a></li>
+	<li class="tab"  ><a href="#lo" style="border-top-right-radius:4px;">Staff</a></li>
+	
+      </ul>
+      
+      <div class="tab-content">
+
+        <div id="signup" class="form">   
+          <h1>Authentification</h1>
+          
+          <h:form id="loginForm">
+              
+              <p:inputText id="user-login" value="#{loginController.cne}" placeholder="Votre CNE" class="form-control" required="true" requiredMessage="CNE Requis" />
+              <br />
+              <p:inputText id="pass-login" value="#{loginController.pass}" placeholder="Pass" class="form-control" type="password" required="true" requiredMessage="Mdp Requis" /> 
+              <br />
+              <p:commandButton value="Se connecter" actionListener="#{loginController.loginEtud(homeController.page)}" class="button button-block" update=":growl,user-login,pass-login"  />
+              
+              
+          </h:form>
+
+        </div>
+        
+		
+		
+		
+		
+          <div id="login" style="display:none;" class="form">   
+ 
+          <h:form id="registerForm">
+              
+                    <h1>Inscription</h1>
+              
+              <p:inputText id="user" value="#{loginController.etudiant.cne}" placeholder="Votre CNE" class="form-control" required="true" requiredMessage="CNE Requis" />
+              <br />
+              <p:inputText id="pass" value="#{loginController.etudiant.password}" placeholder="Votre Mots de Pass" class="form-control" type="password" required="true" requiredMessage="Mdp Requis" /> 
+              <br />
+              <p:inputText id="mail" value="#{loginController.etudiant.email}" placeholder="Votre Email" class="form-control" type="mail" required="true" requiredMessage="Mail Requis"> 
+              
+<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+              
+              </p:inputText> 
+              <br />
+              <p:commandButton value="S'inscrire" actionListener="#{loginController.makeEtud}" class="button button-block" update=":growl,user,pass,mail"  />
+              
+              
+          </h:form>
+
+
+        </div>		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+        <div id="lo" class="form">   
+          
+                    <h1>Admin Auth</h1>
+            
+            <h:form id="adminForm">
+              
+                <p:inputText id="admin-login" value="#{loginController.userAdmin}" placeholder="Votre Identifiant" class="form-control" required="true" requiredMessage="Identifiant Requis" />
+              <br />
+              <p:inputText id="admin-pass" value="#{loginController.passAdmin}" placeholder="Mots de Pass" class="form-control" type="password" required="true" requiredMessage="Mdp Requis" /> 
+              <br />
+              <p:commandButton value="Se connecter" actionListener="#{loginController.loginAdmin()}" class="button button-block" update=":growl,admin-login,admin-pass"  />
+              
+            </h:form>
+        </div>
+      </div><!-- tab-content -->
+      
+</div> <!-- /form -->
+  <script>
+
+
+$('.tab a').on('click', function (e) {
+  
+  e.preventDefault();
+  
+  $(this).parent().addClass('active');
+  $(this).parent().siblings().removeClass('active');
+  
+  target = $(this).attr('href');
+
+  $('.tab-content > div').not(target).hide();
+  
+  $(target).fadeIn(600);
+  
+});
+
+
+</script>
+
+<style>
+    
+    
+body .ui-state-active, body .ui-state-highlight {
+    background-color: rgba(211, 211, 211, 0.55);
+    color: #ffffff;
+}
+</style>
+    
+</body>
+</html>
+
